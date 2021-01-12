@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--Google font-->
@@ -18,40 +19,44 @@
 
 </head>
 <header>
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper purple darken-4">
-                <a href="#" class="brand-logo center">Code Quiz</a>
-                <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a class="waves-effect waves-light btn purple lighten-2" id="highscores"><i
-                                class="material-icons left">storage</i>High Scores</a></li>
-                </ul id="nav-mobile" class="right hide-on-med-and-down">
-                <span class="timer">Timer</span>
-                <ul>
-
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <nav class="nav-bar navbar-light bg-dark">
+        <h3 class="navbar-brand text-light float-right mx-3" id="highscores">High Scores</h3>
+        <h3 class="navbar-brand text-light mx-3"> Time: <span id='timer'></span></h3>
+    </nav>
 </header>
 
 <body>
-    <div class="container">
-        <div class="row col s12">
-            <h1 class="center-align" id="heading"></h1>
-        </div>
-        <div class="row col s12">
-            <h3 id="question-title"></h3>
-        </div>
-        <div class="row col s8 offset-s2">
-            <h5 id="answers" class=""></h5>
-            <h5 id="highscore"></h5>
-        </div>
-        <div class="row col s2 offset-s5">
-            <a class="waves-effect waves-light btn  offset-s5 purple darken-4" id="start-btn">Start Quiz</a>
-        </div>
+    <div id="welcome-div" class="container">
 
+        <h1 class="center-align" id="heading">Code Quiz</h1>
+        <h3 id="question-title">It's time to test your knowledge of JavaScript! You will have 60 seconds to answer 6
+            questions. Click the start button to begin.</h3>
+        <button class="btn btn-dark btn-sm my-1" id="start-btn">Start Quiz</button>
     </div>
+
+    <div id="questions-div" class="container hidden">
+        <h2 id="question-title"></h2>
+        <button id="btn1" class="btn btn-dark btn-sm my-1" id="start-btn"></button><br>
+        <button id="btn2" class="btn btn-dark btn-sm my-1" id="start-btn"></button><br>
+        <button id="btn3" class="btn btn-dark btn-sm my-1" id="start-btn"></button><br>
+    </div>
+
+    <form id="highscores-div" class="container hidden">
+        <h1>You finished!</h1>
+        <div id="form">
+            <p>Your score: <span id='endscore'></span></p>
+            <label for='user'>Enter your name: </label>
+            <input type="text" name="your-name" id="user" />
+            <button class="btn btn-dark btn-sm my-1" type="user-name-submit">Submit High Score</button>
+        </div>
+    </form>
+
+    <div id="highscores-div" class="container hidden">
+        <h1>High Scores</h1>
+        <ol id="highscore-list"></ol>
+    </div>
+
+
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -61,8 +66,6 @@
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
         </script>
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </body>
 

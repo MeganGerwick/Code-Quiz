@@ -1,85 +1,124 @@
-//Set variables
-var score = 0
-var indexQ = 0
-// var currentQ = questions[indexQ];
-var welcomeHeading = document.querySelector("#heading");
-var startBtn = document.querySelector("#start-btn");
-var questionTitle = document.querySelector("#question-title");
-
-//Welcome message
-function welcomeMessage() {
-    welcomeHeading.textContent = "Coding Quiz Challenge";
-    questionTitle.textContent = "It's time to test your knowledge of JavaScript! You will have 60 seconds to answer 6 questions. Click the start button to begin.";
-};
-
-//Clear Welcome
-function clearWelcome() {
-    welcomeHeading.textContent = "";
-    questionTitle.textContent = "";
-    startBtn.remove;
-};
-
-//Timer
-var start = document.querySelector("#start-btn");
-var timer = document.querySelector(".timer")
-var timeLeft = 60
-
-startQuiz.addEventListener("click", function setTimer() {
-    var timerInterval = setInterval(function () {
-        timeLeft--;
-        timer.textContent = "Time left: " + timeLeft;
-        clearWelcome();
-        if (timeLeft === 0) {
-            clearTimeout(timerInterval);
-            gameOver();
-        }
-        else {
-            beginQuiz()
-        }
-    });
-});
-
-//Quiz functions
-function beginQuiz() {
-    var question = document.querySelector("#question-title");
-    var questions = document.querySelector("#answers");
-    var submitBtn = document.createElement("button");
-
-}
 //Test questions Array
 var questions = [
     {
-        question: "",
-        answers: ["", "", ""],
-        correct: ""
+        question: "What naming convention is used for variable names?",
+        answers: ["camelCase", "PascalCase", "snake_case"],
+        correct: "camelCase"
     },
     {
-        question: "",
-        answers: ["", "", ""],
-        correct: ""
+        question: "What is used to create single line comments in a JavaScript file?",
+        answers: ["//", "//->", "-->"],
+        correct: "//"
     },
     {
-        question: "",
-        answers: ["", "", ""],
-        correct: ""
+        question: "What file extension is used for all JavaScript files",
+        answers: [".script", ".js", ".index"],
+        correct: ".js"
     },
     {
-        question: "",
-        answers: ["", "", ""],
-        correct: ""
+        question: "How do you call a function?",
+        answers: ["function()", "function{}", "func()"],
+        correct: "function()"
     },
     {
-        question: "",
-        answers: ["", "", ""],
-        correct: ""
+        question: "How do you create an alert?",
+        answers: ["prompt(' ')", "alert(' ')", "console.log(' ')"],
+        correct: "alert(' ')"
     },
     {
-        question: "",
-        answers: ["", "", ""],
-        correct: ""
+        question: "What symbol denotes an array?",
+        answers: ["{}", "()", "[]"],
+        correct: "[]"
     },
 ];
 
-//Quiz Functions
-welcomeMessage();
-console.log(welcomeHeading);
+//Buttons
+var startBtn = document.getElementById('start-btn');
+var answer1 = document.getElementById('btn1');
+var answer2 = document.getElementById('btn2');
+var answer3 = document.getElementById('btn3');
+var highScoresBtn = document.getElementById('highscores');
+
+//Containers and Divs
+var welcome = document.getElementById('welcome-div');
+var questionDiv = document.getElementById('questions-div');
+var finishedDiv = document.getElementById('finished');
+var highScoresDiv = document.getElementById('highscores-div');
+var form = document.getElementById('form');
+
+//Other variables
+var timeLeft = 60;
+var questionNum = 0;
+var timer = document.getElementById('timer');
+var questionTitle = document.getElementById('question-title');
+var user = document.getElementById('user');
+var endscore = document.getElementById('endscore');
+var highScoreList = document.getElementById('highscore-list');
+var yourEndScore = 0;
+
+//Check local storage at beginning of quiz
+var highscore;
+if (localStorage.getItem('high scores')) {
+    highscore = JSON.parse(localStorage.getItem('high scores'));
+} else {
+    highscore = {
+        'name': [],
+        'score': []
+    };
+};
+
+//Eventlistener for high score button
+highScoresBtn.addEventListener('click', function () {
+    displayScores();
+});
+
+//Function to display high scores
+function displayScores()
+
+//Function to start quiz and timer
+startBtn.addEventListener('click', function () {
+    startQuiz();
+});
+
+function startQuiz() {
+    //Hide welcome message
+    welcome.setAttribute('class', 'container hidden');
+    questionDiv.setAttribute('class', 'container');
+
+    questionDiv.addEventListener('click', function (event) {
+        if (event.target.matches('button')) {
+            yourEndScore + 10;
+            questionNum++;
+        } else {
+            timeLeft - 5;
+            questionNum++;
+        };
+    });
+
+
+    var timeInterval = setInterval(function () {
+        timer.textContent = timeLeft
+        timeLeft--;
+
+        questionTitle.innerText = questions[questionNum]['question'];
+        answer1.innerText = questions[questionNum]['answers'][0];
+        answer2.innerText = questions[questionNum]['answers'][1];
+        answer3.innerText = questions[questionNum]['answers'][2];
+
+        if (timeLeft <= 0 || questionNum === questions.length - 1) {
+            timer.textContent = "";
+            clearInterval(timeInterval);
+            finished();
+        };
+    }, 1000);
+};
+function showQuestions(currentQuestion) {
+    console.log(currentQuestion);
+};
+
+function finished() {
+    questionDiv.setAttribute('class', 'container hidden');
+    finishedDiv.setAttribute('class', 'container');
+
+
+};
