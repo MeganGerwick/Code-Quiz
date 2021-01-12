@@ -34,6 +34,7 @@ var questions = [
 
 //Buttons
 var startBtn = document.getElementById('start-btn');
+var restartBtn = document.getElementById('restart-btn');
 var answer1 = document.getElementById('btn1');
 var answer2 = document.getElementById('btn2');
 var answer3 = document.getElementById('btn3');
@@ -42,7 +43,7 @@ var highScoresBtn = document.getElementById('highscores');
 //Containers and Divs
 var welcome = document.getElementById('welcome-div');
 var questionDiv = document.getElementById('questions-div');
-var finishedDiv = document.getElementById('finished');
+var finishedDiv = document.getElementById('finished-div');
 var highScoresDiv = document.getElementById('highscores-div');
 var form = document.getElementById('form');
 
@@ -69,14 +70,33 @@ if (localStorage.getItem('high scores')) {
 
 //Eventlistener for high score button
 highScoresBtn.addEventListener('click', function () {
-    displayScores();
+    displayHighScores();
 });
 
 //Function to display high scores
-function displayScores()
+function displayHighScores() {
+    highScoreList.innerHTML = "";
+
+    questionDiv.setAttribute('class', 'container hidden');
+    finishedDiv.setAttribute('class', 'container hidden');
+    welcome.setAttribute('class', 'container hidden');
+    highScoresDiv.setAttribute('class', 'container ');
+
+    timer.textContent = '';
+
+    for (var i = 0; i < highscore.name.length; i++) {
+        var li = document.createElement('li');
+        li.innerText = highscore.name[i] + "    |   Score: " + highscore.score[i];
+        highScoreList.appendChild(li);
+    };
+};
 
 //Function to start quiz and timer
 startBtn.addEventListener('click', function () {
+    startQuiz();
+});
+
+restartBtn.addEventListener('click', function () {
     startQuiz();
 });
 
@@ -87,7 +107,7 @@ function startQuiz() {
 
     questionDiv.addEventListener('click', function (event) {
         if (event.target.matches('button')) {
-            yourEndScore + 10;
+            yourEndScore++;
             questionNum++;
         } else {
             timeLeft - 5;
@@ -112,13 +132,27 @@ function startQuiz() {
         };
     }, 1000);
 };
-function showQuestions(currentQuestion) {
-    console.log(currentQuestion);
-};
+// function showQuestions(currentQuestion) {
+//     console.log(currentQuestion);
+// };
 
 function finished() {
     questionDiv.setAttribute('class', 'container hidden');
     finishedDiv.setAttribute('class', 'container');
 
+    endscore.innerText = yourEndScore;
 
+    form.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (event.target.matches('button')) {
+            var userName = user.value;
+            highscore['name'].push(userName);
+            highscore['score'].push(yourEndScore);
+
+            localStorage.setItem('highscore', JSON.stringify(highscore));
+
+            displayHighScores();
+        };
+    });
 };
+
